@@ -25,16 +25,16 @@ info.set_info = function(new_info) {
   let title_string = "";
   let artist_string = "";
   if(desc) {
-    desc_string = "<span><span>Current Song:</span><span>" + desc + "</span></span>";
+    desc_string = "<span><span>Game:</span><span>" + desc + "</span></span>";
     if(name) {
       title_string = "<span><span>Title:</span><span>" + name + "</span></span>";
     }
   }
   else if(name) {
-    desc_string = "<span><span>Current Song:</span><span>" + name + "</span></span>";
+    desc_string = "<span><span>Game:</span><span>" + name + "</span></span>";
   }
   else {
-    desc_string = "<span><span>Current Song:</span><span>Song Info Missing</span></span>";
+    desc_string = "<span><span>Game:</span><span>Song Info Missing</span></span>";
   }
 
   if(artist) {

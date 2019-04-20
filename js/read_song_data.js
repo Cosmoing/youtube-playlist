@@ -16,6 +16,7 @@ songs.forEach( function(song) {
     name: song.name,
     artist: song.artist,
     uuid: song.uuid,
+    image: song.imageUrl,
     tags: new Set(song.tags),
     weight: song.weight || 1,
     removed: song.removed || false,
