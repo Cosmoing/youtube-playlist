@@ -282,7 +282,7 @@ span#volume-number {
 }
 
 
-#tag-controls {
+#tag-controls, #extra-controls {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;

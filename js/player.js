@@ -73,9 +73,12 @@ player.get_cur_alternative = get_cur_alternative;
 
 let _play = function() {
   const song = get_cur_alternative();
+
+  let noTimestamp = document.getElementById("cb-nots").checked;
+
   player.p.loadVideoById({
     videoId: song.id,
-    startSeconds: song.start,
+    startSeconds: (noTimestamp) ? 0 : song.start,
     endSeconds: song.end,
   });
   player.set_volume();
