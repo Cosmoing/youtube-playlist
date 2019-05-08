@@ -289,11 +289,17 @@ span#volume-number {
 	font-size: 18px;
 }
 
-#tag-controls button {
+#extra-controls {
+    margin-top: 0.5em;
+}
+
+#tag-controls button, #extra-controls button {
 	font-size: 17px;
 }
 
-
+#hidden-import-preferences {
+    display: none;
+}
 
 #debug-log {
 	outline: 1px solid black;

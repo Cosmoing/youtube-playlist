@@ -50,6 +50,7 @@
             <option value="random">Random</option>
             <option value="weighted">Weighted</option>
         </select></label>
+        <label><input id="cb-nots" type="checkbox">No timestamp</label>
         <label class="extra"><input id='cb-skip-fail' type='checkbox'>Skip Unlikely</label>
       </div>
 
@@ -80,7 +81,9 @@
       </div>
         
       <div id="extra-controls">
-        <label><input id="cb-nots" type="checkbox">No timestamp</label>
+        <button type="button" id="export-preferences">Export Preferences</button>
+        <button type="button" id="import-preferences">Import Preferences</button>
+        <input type="file" id="hidden-import-preferences">
       </div>
 
       <div class="extra">

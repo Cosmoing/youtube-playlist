@@ -15,6 +15,8 @@ if(!yp.player) {
   player.fail_timeout = 0;
 
   player.volume_perc = 100;
+    
+  player.no_timestamp = false;
 
   player.p = null;
   player.ready = false;
@@ -25,7 +27,7 @@ else {
 }
 
 // const saved_option_names = ['shuffle', 'skip_expected_fail', 'player_hidden', 'volume_perc'];
-const saved_option_names = ['song_order', 'skip_expected_fail', 'volume_perc', 'advanced_view'];
+const saved_option_names = ['song_order', 'skip_expected_fail', 'volume_perc', 'advanced_view', 'no_timestamp'];
 
 saved_option_names.forEach( function(option_name) {
   const option = localStorage.getItem(option_name);

@@ -179,6 +179,96 @@ tag_data.reset_set_tags = function() {
   });
   tag_data.filter_cache_is_valid = false;
 };
+    
+tag_data.export_preferences = function() {
+    let data = [];
+    for(let prop_name in custom_tags)
+    {
+        let pref_songs = JSON.parse(localStorage.getItem(prop_name));
+        let saved_prefs = [];
+        for (let i = 0; i < pref_songs.length; i++)
+        {
+            var song = yp.song_data[yp.uuid_to_index[pref_songs[i]]];
+            var song_info = {};
+            song_info.id = song.alternatives[0].id;
+            song_info.artist = song.info.artist;
+            song_info.game = song.info.desc;
+            song_info.name = song.info.name;
+            saved_prefs.push(song_info);
+        }
+        
+        data.push({pref: prop_name, data: saved_prefs});
+    }
+    
+    let json = JSON.stringify(data);
+    let blob = new Blob([json], {type: "application/json"});
+    var url = URL.createObjectURL(blob);
+    var elem = document.createElement('a');
+    elem.download = "fmp_preferences.json";
+    elem.href = url;
+    elem.click();
+};
+    
+tag_data.import_preferences_click = function() {
+    document.getElementById("hidden-import-preferences").click();
+}
+
+tag_data.import_preferences = function(e) {
+    var file = e.target.files[0];
+    if (!file) {
+        return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e) {
+        var contents = JSON.parse(e.target.result);
+        for (let i = 0; i < contents.length; i++)
+        {
+            var info = contents[i];
+            if (custom_tags[info.pref] && info.data.length > 0)
+            {
+                var new_uuids = [];
+                for (let j = 0; j < info.data.length; j++)
+                {
+                    var song = info.data[j];
+                    var index = yp.id_to_index[song.id];
+                    if (index)
+                    {
+                        new_uuids.push(yp.song_data[index].info.uuid);
+                    }
+                    else
+                    {
+                        for (let s = 0; s < yp.song_data.length; s++)
+                        {
+                            var match_count = 0;
+                            var song_info = yp.song_data[s].info;
+                            if (song_info.name == song.name)
+                            {
+                                match_count++;
+                            }
+                            if (song_info.artist == song.artist)
+                            {
+                                match_count++;
+                            }
+                            if (song_info.desc == song.game)
+                            {
+                                match_count++;
+                            }
+                            
+                            if (match_count >= 2)
+                            {
+                                new_uuids.push(song_info.uuid);
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                localStorage.setItem(info.pref, JSON.stringify(new_uuids));
+            }
+        }
+    };
+    reader.readAsText(file);
+}
 
 return function() {
   //read in liked and disabled sets

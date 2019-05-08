@@ -61,6 +61,10 @@ let skip_expected_fails_handle = function(cb) {
 let clear_local_storage = function() {
   localStorage.clear();
 };
+    
+let timestamp_handle = function(cb) {
+    localStorage.setItem('no_timestamp', JSON.stringify(cb.checked));
+}
 
 //attach handlers
 return function() {
@@ -86,11 +90,18 @@ return function() {
   const skip_fail_cb = document.getElementById("cb-skip-fail");
   skip_fail_cb.onclick = skip_expected_fails_handle.bind(skip_fail_cb, skip_fail_cb);
   skip_fail_cb.checked = player.skip_expected_fail;
+    
+  const no_timestamp_cb = document.getElementById("cb-nots");
+  no_timestamp_cb.onclick = timestamp_handle.bind(no_timestamp_cb, no_timestamp_cb);
+  no_timestamp_cb.checked = player.no_timestamp;
 
   document.getElementById("cb-like").onclick = yp.tag_data.tag_preference_checkbox('liked');
   document.getElementById("cb-disable").onclick = yp.tag_data.tag_preference_checkbox('disabled');
   document.getElementById("reset-preferences").onclick = yp.tag_data.reset_tag_preferences;
   document.getElementById("reset-set-tags").onclick = yp.tag_data.reset_set_tags;
+  document.getElementById("export-preferences").onclick = yp.tag_data.export_preferences;
+  document.getElementById("import-preferences").onclick = yp.tag_data.import_preferences_click;
+  document.getElementById("hidden-import-preferences").addEventListener("change", yp.tag_data.import_preferences);
 
   document.getElementById("bot-host").value = comm.server_hostname;
   document.getElementById("bot-port").value = comm.server_port;

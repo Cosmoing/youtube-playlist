@@ -5,6 +5,7 @@ let song_data = [];
 let tags = new Set();
 let uuids = new Set();
 let uuid_to_index = {};
+let id_to_index = {};
 let song_weights = [];
 let song_index = 0;
 songs.forEach( function(song) {
@@ -61,6 +62,9 @@ songs.forEach( function(song) {
   else {
     data.alternatives = [build_alternative(song)];
   }
+    
+  id_to_index[song.id] = data.index;
+    
   song_data.push(data);
 });
 
@@ -68,5 +72,6 @@ yp.song_data = song_data;
 yp.tags = tags;
 yp.uuids = uuids;
 yp.uuid_to_index = uuid_to_index;
+yp.id_to_index = id_to_index;
 yp.song_weights = song_weights;
 };
