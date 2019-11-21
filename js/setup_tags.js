@@ -158,7 +158,15 @@ tag_data.reset_tag_preferences = function() {
   for(let prop_name in custom_tags) {
     const tag_name = custom_tags[prop_name];
     //remove the tags from each song that has them
-    tag_data[prop_name].forEach( (uuid) => yp.song_data[ yp.uuid_to_index[uuid] ].info.tags.delete(tag_name) );
+    function tryToReset(uuid)
+    {
+        var song = yp.song_data[ yp.uuid_to_index[uuid] ];
+        if (song)
+        {
+            yp.song_data[ yp.uuid_to_index[uuid] ].info.tags.delete(tag_name);
+        }
+    }
+    tag_data[prop_name].forEach( tryToReset );
     //remove the preferences from storage
     tag_data[prop_name] = new Set();
     localStorage.setItem( prop_name, JSON.stringify([]) );
